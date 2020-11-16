@@ -1,6 +1,5 @@
 <?php
 require 'connection.php';
-
 $data = file_get_contents("php://input");
 $mydata = json_decode($data,true);
 $id = $mydata['id'];
@@ -15,5 +14,5 @@ $newdata = $mydata['data'];
     }else {
         echo "Ошибка при добавлении зала в БД!";
     };
- };
+};
 ?>
