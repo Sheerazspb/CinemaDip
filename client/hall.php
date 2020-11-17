@@ -37,7 +37,7 @@ if (mysqli_num_rows($res) > 0) {
               $movie_name = $row['movieName'];
               $showTime = substr($row['time'], 0, 5);
               $hall_name = $row['hallName'];
-              ?>
+          ?>
               <div class="buying__info-description" data-="<?= $row['id'] ?>">
                 <h2 class="buying__info-title"><?= $movie_name ?></h2>
                 <p class="buying__info-start">Начало сеанса: <?= $showTime ?></p>
@@ -63,63 +63,67 @@ if (mysqli_num_rows($res) > 0) {
 
                     <script src="../admin/js/jquery-3.5.1.js"></script>
                     <script>
+                      let dbRow = [];
+                      let dbSeat = [];
                       <?php
                       $sql3 = "SELECT (rows),(seats) FROM makeOrder  WHERE time = '$showTime' AND hallName = '$hall_name' AND movieName = '$movie_name'";
                       $res3 = mysqli_query($conn, $sql3);
-                      while ($row3 = mysqli_fetch_assoc($res3)) {
-                        $hallSeats = $row3['seats'];
-                        $hallRows = $row3['rows'];
+                      while ($row3 = mysqli_fetch_all($res3)) {
+                        foreach ($row3 as $rowKey => $rowValue) {
+                        $hallSeats = $rowValue['1'];
+                        $hallRows = $rowValue['0'];
                         $newSeats = json_encode(unserialize($hallSeats));
                         $newRows = json_encode(unserialize($hallRows));
                       ?>
-                      let  dbRow = <?= $newRows ?>;
-                      let  dbSeat = <?= $newSeats ?>;
-                        if (dbRow != false || dbSeat != false) {
-                          dbRow.forEach((dbRowVal, key1) => {
-                            console.log(dbRowVal);
-                            dbSeat.forEach((dbSeatVal, key2) => {
-                              // console.log(dbSeat)
-                              if (key1 == key2) {
-                                console.log(dbSeatVal);
-                                let simpleChair = document.querySelectorAll(".conf-step__chair")
-                                for (let index = 0; index < simpleChair.length; index++) {
-                                  let element4 = simpleChair[index];
-                                  if (element4.classList.contains('conf-step__chair_standart') || element4.classList.contains('conf-step__chair_vip')) {
-                                    $(element4).addClass("xxx");
+                        dbRow = <?= $newRows ?>;
+                        dbSeat = <?= $newSeats ?>;
+                          if (dbRow != false || dbSeat != false) {
+                            dbRow.forEach((dbRowVal, key1) => {
+                              console.log(dbRowVal);
+                              dbSeat.forEach((dbSeatVal, key2) => {
+                                // console.log(dbSeat)
+                                if (key1 == key2) {
+                                  console.log(dbSeatVal);
+                                  let simpleChair = document.querySelectorAll(".conf-step__chair")
+                                  for (let index = 0; index < simpleChair.length; index++) {
+                                    let element4 = simpleChair[index];
+                                    if (element4.classList.contains('conf-step__chair_standart') || element4.classList.contains('conf-step__chair_vip')) {
+                                      $(element4).addClass("xxx");
+                                    }
                                   }
-                                }
-                                // console.log(element4);
-                                let selectedRow = document.querySelectorAll(".conf-step__row")
-                                for (let rowIndex = 0; rowIndex < selectedRow.length; rowIndex++) {
-                                  let element = selectedRow[rowIndex];
-                                  let xxxChair = element.querySelectorAll(".xxx")
-                                  for (let seatInd = 0; seatInd < xxxChair.length; seatInd++) {
-                                    let element2 = xxxChair[seatInd];
-                                    if (element == selectedRow[dbRowVal - 1] && element2 == xxxChair[dbSeatVal - 1]) {
-                                      $(element2).removeClass("conf-step__chair_standart conf-step__chair_vip").addClass("conf-step__chair_taken");
+                                  // console.log(element4);
+                                  let selectedRow = document.querySelectorAll(".conf-step__row")
+                                  for (let rowIndex = 0; rowIndex < selectedRow.length; rowIndex++) {
+                                    let element = selectedRow[rowIndex];
+                                    let xxxChair = element.querySelectorAll(".xxx")
+                                    for (let seatInd = 0; seatInd < xxxChair.length; seatInd++) {
+                                      let element2 = xxxChair[seatInd];
+                                      if (element == selectedRow[dbRowVal - 1] && element2 == xxxChair[dbSeatVal - 1]) {
+                                        $(element2).removeClass("conf-step__chair_standart conf-step__chair_vip").addClass("conf-step__chair_taken");
+                                      }
                                     }
                                   }
                                 }
-                              }
-                            })
-                          })
+                              });
+                            });
+                          }
+                        <?php
                         }
+                        ?>
                     </script>
-                  <?php
+                    <?php
                       }
-                  ?>
-                <?php
                     }
                   }
                 }
               }
             }
           }
-      ?>
-      </div>
+        ?>
+        </div>
         <?php
-      }
-      ?>
+        }
+        ?>
         <div class="buying-scheme__legend">
           <div class="col">
             <p class="buying-scheme__legend-price"><span class="conf-step__chair conf-step__chair_standart"></span> Свободно (<span id="standardPrice" class="buying-scheme__legend-value">250</span>руб)</p>
@@ -133,11 +137,6 @@ if (mysqli_num_rows($res) > 0) {
         </div>
         <button id="makePayment" class="acceptin-button">Забронировать</button>
       </section>
-      <?php
-      // print_r($newRows);
-      // echo $newww;
-      // print_r($newSeats);
-      ?>
     </main>
 
     <script src="../admin/js/jquery-3.5.1.js"></script>
