@@ -41,7 +41,7 @@ if (mysqli_num_rows($res) > 0) {
           $hallRows = $row['rows'];
           $newSeats = unserialize($hallSeats);
           $newRows = unserialize($hallRows);
-          $newQrCode = unserialize(base64_decode($row['qrCode']));
+          $newQrCode = $row['qrCode'];
       ?>
           <div class="ticket__info-wrapper">
             <p class="ticket__info">На фильм: <span class="ticket__details ticket__title"><?= $row['movieName'] ?></span></p>
