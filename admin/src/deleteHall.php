@@ -5,7 +5,7 @@ require 'connection.php';
       $sql = "DELETE FROM cinemaHalls WHERE id = $id";
       $res = mysqli_query($conn, $sql);
       if ($res) {
-          header("Location: index.php");
+          header("Location: ../index.php");
       }
     }
     ?>

@@ -19,8 +19,6 @@ delHall.forEach(function (item,index) {
     document.querySelector('.delete-popup').style.display = 'block';
     let selectedHall = e.target.name;
     let newid = e.target.id;
-    // console.log(newid);
-    // console.log(selectedHall);
     document.getElementById('span').innerHTML = selectedHall;
     document.querySelector(".hidenId").value = newid;
   })
@@ -65,32 +63,30 @@ configHall.forEach(function (item, index) {
         });
         document.getElementById('clear-row').addEventListener('click', function (e) {
       // e.preventDefault();
-     parentElm.innerHTML = '';
-    });
-    // console.log(confHallId);
+      parentElm.innerHTML = '';
+      });
     });
       document.getElementById('submit1').addEventListener('click', function (e) {
       e.preventDefault();
       let parentElm = document.getElementById("stepRows");
       let innerHtml = parentElm.innerHTML;
       let xhr = new XMLHttpRequest();
-      xhr.open("POST", "hall-update.php", true);
+      xhr.open("POST", "src/hallUpdate.php", true);
       xhr.onload = () => {
         if (xhr.status === 200) {
           alert(xhr.responseText);
           } else {
-          console.log('problem occured');
+          alert('problem occured');
         }
       }
       let myData = { data: innerHtml, id: confHallId };
       let ndata = JSON.stringify(myData);
-      // console.log(ndata);
       xhr.send(ndata);
       e.stopImmediatePropagation();
       location.reload();
     });
     $.ajax({
-            url: "retriveData.php",
+            url: "src/retriveData.php",
             type: "GET",
             data: { id: confHallId },
             success: function (data) {
@@ -116,7 +112,7 @@ hallPrice.forEach(function (item) {
     standardPrice = Number(standardPrice);
     vipPrice = Number(vipPrice);
         $.ajax({
-        url: "seat-price.php",
+        url: "src/seatPrice.php",
         type: "POST",
         data: { id: hallId, standard: standardPrice, vip: vipPrice },
         success: function (data) {
@@ -160,7 +156,7 @@ $(document).ready(function () {
     let country = document.querySelector('.clear-country-field').value;
     let description = document.querySelector('.clear-description-field').value;
       $.ajax({
-        url: "addMovie.php",
+        url: "src/addMovie.php",
         type: "POST",
         data: {movieN:movie, durationN:duration, countryN:country, descriptionN:description},
         success: function (data) {
@@ -181,7 +177,6 @@ showTime.forEach(function (item, index) {
   item.addEventListener('click',function (e) {
     e.preventDefault();
     let slectedMovie = item.getAttribute('data-');
-    // console.log(slectedMovie);
     document.querySelector('.show-time-addPopup').style.display = 'block';
     document.querySelector('.show-time-addPopup').style.position = 'absolute';
     document.querySelector('.closePopupDismiss').addEventListener('click',function(e) {
@@ -195,17 +190,12 @@ showTime.forEach(function (item, index) {
       let startTime = document.getElementById('timeValue').value;  
       let hallOption = document.getElementById('hallOption');
       let selectedHall = hallOption.options[hallOption.selectedIndex].text;
-      // console.log(selectedHallId);
-      // console.log(selectedHall);
-      // console.log(startTime);
       let nstyle = window.getComputedStyle(document.querySelector('.conf-step__seances-movie')).left;
-      // console.log(nstyle);
       let styleLeft = startTime.split(":")[0] * 30;
-        // console.log(styleLeft);
-        nstyle = styleLeft;
+      nstyle = styleLeft;
       $('body').on('click', "#addShow", function (e) {
           $.ajax({
-            url: "addShow.php",
+            url: "src/addShow.php",
             type: "POST",
             data: {hallN: selectedHall, movieN: slectedMovie, timeN: startTime,style:nstyle },
             success: function (data) {
@@ -220,10 +210,9 @@ showTime.forEach(function (item, index) {
           });
         });
       });
-      // console.log(movieShowHall);
     });
   });
-       // --------------------------------showtime delete popup---------------------------------------
+       // ------------------------------showtime delete popup---------------------------------------
       
     let movieSeance = document.querySelectorAll(".conf-step__seances-movie");
     movieSeance.forEach(function (item,index) {
@@ -237,7 +226,7 @@ showTime.forEach(function (item, index) {
             // e.preventDefault();
           let showId = deleteShow.getAttribute('name').innerText = seanceMovieId;
           $.ajax({
-            url: "deleteShow.php",
+            url: "src/deleteShow.php",
             type: "POST",
             data: {showIdN:showId},
             success: function (data) {
@@ -255,32 +244,4 @@ showTime.forEach(function (item, index) {
       });
     });
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

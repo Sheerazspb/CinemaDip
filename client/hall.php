@@ -1,25 +1,17 @@
 <?php
-require '../admin/connection.php';
-$sql = "select * from makeOrder";
+require '../admin/src/connection.php';
+$sql = "select id from makeOrder";
 $res = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($res) > 0) {
-  while ($row = mysqli_fetch_assoc($res)) {
+while ($row = mysqli_fetch_assoc($res)) {
     $getId = $row['id'];
   }
 ?>
   <!DOCTYPE html>
   <html lang="ru">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ИдёмВКино</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-  </head>
+  <?php
+  include '../admin/head.html';
+  ?>
 
   <body>
     <header class="page-header">
@@ -70,13 +62,13 @@ if (mysqli_num_rows($res) > 0) {
                       $res3 = mysqli_query($conn, $sql3);
                       while ($row3 = mysqli_fetch_all($res3)) {
                         foreach ($row3 as $rowKey => $rowValue) {
-                        $hallSeats = $rowValue['1'];
-                        $hallRows = $rowValue['0'];
-                        $newSeats = json_encode(unserialize($hallSeats));
-                        $newRows = json_encode(unserialize($hallRows));
+                          $hallSeats = $rowValue['1'];
+                          $hallRows = $rowValue['0'];
+                          $newSeats = json_encode(unserialize($hallSeats));
+                          $newRows = json_encode(unserialize($hallRows));
                       ?>
-                        dbRow = <?= $newRows ?>;
-                        dbSeat = <?= $newSeats ?>;
+                          dbRow = <?= $newRows ?>;
+                          dbSeat = <?= $newSeats ?>;
                           if (dbRow != false || dbSeat != false) {
                             dbRow.forEach((dbRowVal, key1) => {
                               console.log(dbRowVal);
@@ -111,7 +103,7 @@ if (mysqli_num_rows($res) > 0) {
                         }
                         ?>
                     </script>
-                    <?php
+      <?php
                       }
                     }
                   }
@@ -119,11 +111,8 @@ if (mysqli_num_rows($res) > 0) {
               }
             }
           }
-        ?>
-        </div>
-        <?php
-        }
-        ?>
+      ?>
+          </div>
         <div class="buying-scheme__legend">
           <div class="col">
             <p class="buying-scheme__legend-price"><span class="conf-step__chair conf-step__chair_standart"></span> Свободно (<span id="standardPrice" class="buying-scheme__legend-value">250</span>руб)</p>

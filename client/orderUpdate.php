@@ -1,5 +1,5 @@
 <?php
-require '../admin/connection.php';
+require '../admin/src/connection.php';
 $id = $_POST['nId'];
 $totalPrice = $_POST['nTotalPrice'];
 $seats = $_POST['nSeats'];
@@ -8,6 +8,4 @@ $seats = serialize($_POST['nSeats']);
 $rows = serialize($_POST['nRows']);
 $sql = "UPDATE  makeOrder SET totalPrice = ('$totalPrice'), seats = ('$seats'), rows = ('$rows') WHERE id = $id";
 $res = mysqli_query($conn, $sql);
-if ($res) {
-    echo 1;
-}
+echo $res ? 1 : 0;

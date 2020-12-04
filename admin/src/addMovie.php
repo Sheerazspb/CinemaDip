@@ -7,7 +7,5 @@ require 'connection.php';
     $description = $_POST['descriptionN'];
     $sql = "INSERT INTO Movies (movie,duration,country,aboutMovie) VALUES ('$movie','$duration','$country','$description')";
     $res = mysqli_query($conn,$sql);
-    if ($res) {
-        echo 1;
-    }
+    echo $res ? 1 : 0;
 ?>

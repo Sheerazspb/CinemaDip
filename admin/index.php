@@ -1,20 +1,14 @@
 <?php
 ob_start();
-require 'login_submit.php';
+require 'src/loginSubmit.php';
 if (isset($_SESSION['logged_in'])) {
 ?>
   <!DOCTYPE html>
   <html lang="ru">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ИдёмВКино</title>
-    <link rel="stylesheet" href="CSS/normalize.css">
-    <link rel="stylesheet" href="CSS/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-  </head>
+  <?php
+  include "head.html";
+  ?>
 
   <body>
     <header class="page-header">
@@ -50,7 +44,7 @@ if (isset($_SESSION['logged_in'])) {
 
                         </div>
                         <div class="popup__wrapper">
-                          <form action="delete-hall.php" method="GET" accept-charset="utf-8">
+                          <form action="src/deleteHall.php" method="GET" accept-charset="utf-8">
                             <p class="conf-step__paragraph">Вы действительно хотите удалить <span id="span" style="color:red; font-weight: bold; font-size: 18px;"></span><span style="font-size: 20px;">?</span></p>
                             <!-- В span будет подставляться название зала -->
                             <div class="conf-step__buttons text-center">
@@ -83,7 +77,7 @@ if (isset($_SESSION['logged_in'])) {
 
               </div>
               <div class="popup__wrapper">
-                <form action="add_hall.php" method="POST" accept-charset="utf-8">
+                <form action="src/addHall.php" method="POST" accept-charset="utf-8">
                   <label class="conf-step__label conf-step__label-fullsize" for="name">
                     Название зала
                     <input class="conf-step__input clear-field" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" required>
@@ -200,7 +194,7 @@ if (isset($_SESSION['logged_in'])) {
 
                 </div>
                 <div class="popup__wrapper">
-                  <form action="addMovie.php" method="post" accept-charset="utf-8">
+                  <form action="src/addMovie.php" method="post" accept-charset="utf-8">
                     <label class="conf-step__label conf-step__label-fullsize" for="name">
                       Название фильма
                       <input class="conf-step__input clear-name-field" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
@@ -319,7 +313,7 @@ if (isset($_SESSION['logged_in'])) {
                       Время начала
                       <input id="timeValue" class="conf-step__input" type="time" value="00:00" name="start_time" required>
                     </label>
-                   <div class="conf-step__buttons text-center">
+                    <div class="conf-step__buttons text-center">
                       <input id="addShow" type="submit" value="Добавить" class="conf-step__button conf-step__button-accent">
                       <button class="conf-step__button conf-step__button-regular">Отменить</button>
                     </div>
@@ -360,7 +354,7 @@ if (isset($_SESSION['logged_in'])) {
         <div class="conf-step__wrapper text-center">
           <p class="conf-step__paragraph">Всё готово, теперь можно:</p>
           <form action="../client/index.php" method="POST">
-          <button id="openSale" name="open_sale" class="conf-step__button conf-step__button-accent">Открыть продажу билетов</button>
+            <button id="openSale" name="open_sale" class="conf-step__button conf-step__button-accent">Открыть продажу билетов</button>
           </form>
         </div>
       </section>
@@ -372,6 +366,6 @@ if (isset($_SESSION['logged_in'])) {
   </html>
 <?php
 } else {
-  header("Location: login.php");
+  header("Location: login.html ");
 }
 ?>

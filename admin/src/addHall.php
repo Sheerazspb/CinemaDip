@@ -5,7 +5,7 @@ if (isset($_POST['addHall'])) {
     $sql = "INSERT INTO cinemaHalls (hallName) VALUES ('$hallName')";
     $res = mysqli_query($conn,$sql);
     if ($res){
-        header("Location: index.php");
+        header("Location: ../index.php");
             } else {
                 echo 'Something went wrong';
             }

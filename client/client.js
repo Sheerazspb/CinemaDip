@@ -1,14 +1,10 @@
-    let movieShowTime = document.querySelectorAll(".movie-seances__time");
+let movieShowTime = document.querySelectorAll(".movie-seances__time");
         movieShowTime.forEach(function (item,index) {
         item.addEventListener('click',function (e) {
         let getTime = e.target.innerText;
-        console.log(getTime);
         let getMovie = item.getAttribute('data-');
-        console.log(getMovie);
         let getHall = item.getAttribute('data-2');
-            console.log(getHall);
-        
-    $.ajax({
+        $.ajax({
             url: "order.php",
             type: "POST",
             data: {nTime: getTime, nMovie: getMovie, nHall: getHall},
@@ -35,13 +31,11 @@ $(document).ready(function () {
 });
 
 $('body').on("click", "#makePayment", function () {
-       
         let rows = [];
         let seats = [];
         let standartSeats = [];
         let vipSeats = [];
         let newHallId = document.querySelector(".buying__info-description").getAttribute("data-");
-        console.log(newHallId);
         let simpleChair = document.querySelectorAll(".conf-step__chair")
         for (let index = 0; index < simpleChair.length; index++) {
             let element4 = simpleChair[index];
@@ -62,27 +56,23 @@ $('body').on("click", "#makePayment", function () {
                 }
             })
         })
-        console.log('Место '+seats)
         let selectedRow = document.querySelectorAll(".conf-step__row")
         for (let rowIndex = 0; rowIndex < selectedRow.length; rowIndex++) {
             const element = selectedRow[rowIndex];
             let xxxChair = element.querySelectorAll(".xxx")
             for (let seatInd = 0; seatInd < xxxChair.length; seatInd++) {
                 let element2 = xxxChair[seatInd];
-                // console.log(element2);
                 if (element.classList.contains('selectedRow') && (element2.classList.contains('conf-step__chair_selected'))) {
                     rows.push(rowIndex + 1);
                 }
             }
         }
-        console.log("Ряд "+rows);
         let stanPrice = document.getElementById("standardPrice").innerText;
         let vPrice = document.getElementById("vipPrice").innerText;
         let sPrice = standartSeats.length * stanPrice
         let v_Price = vipSeats.length * vPrice
         let totalPrice = sPrice + v_Price
-        console.log('Цена ' + totalPrice)
-    $.ajax({
+        $.ajax({
             url: "orderUpdate.php",
             type: "POST",
             data:{ nSeats: seats, nRows: rows, nTotalPrice: totalPrice, nId: newHallId },
@@ -95,7 +85,6 @@ $('body').on("click", "#makePayment", function () {
     $(document).ready(function () {
     $('body').on("click", "#getQrCode", function () {
         let hallId = document.querySelector(".ticket__info-wrapper").getAttribute("data-");
-        console.log(hallId)
         let movie = document.getElementById("movieInfo").innerText;
         let rowsAndSeats = '';
         document.querySelectorAll(".seatRowInfo").forEach(function (info) {

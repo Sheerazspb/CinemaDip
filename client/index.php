@@ -1,22 +1,14 @@
 <?php
-require '../admin/connection.php';
-require '../admin/add_hall.php';
-require '../admin/addMovie.php';
+require '../admin/src/connection.php';
+require '../admin/src/addHall.php';
+require '../admin/src/addMovie.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="ru">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>ИдёмВКино</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-</head>
-
+<?php
+include '../admin/head.html';
+?>
 <body>
   <header class="page-header">
     <h1 class="page-header__title">Идём<span>в</span>кино</h1>
@@ -77,7 +69,7 @@ require '../admin/addMovie.php';
             ?>
               <div class="movie-seances__hall">
                 <h3 class="movie-seances__hall-title"><?= $value ?></h3>
-                 <ul class="movie-seances__list">
+                  <ul class="movie-seances__list">
                   <?php
                   $sql = "select * from shows";
                   $res3 = mysqli_query($conn, $sql);
@@ -110,7 +102,6 @@ require '../admin/addMovie.php';
           }
         }
       ?>
-
   </main>
   <script src="../admin/js/jquery-3.5.1.js"></script>
   <script src="client.js"></script>

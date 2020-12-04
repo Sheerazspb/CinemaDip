@@ -9,9 +9,9 @@ if (isset($_POST['login'])) {
     $row = mysqli_fetch_assoc($res);
     if ($user === $row['login'] && $pass === $row['pass']) {
         $_SESSION['logged_in'] = '1';
-        header("Location: index.php");
+        header("Location: ../index.php");
     } else {
-        header("Location: login.php");
+        header("Location: ../login.html");
     }
 } 
 ?>
